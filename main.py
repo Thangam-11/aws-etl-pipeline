@@ -1,6 +1,3 @@
-def main():
-    print("Hello from aws-etl-pipeline!")
+from utils.logger import logger
 
-
-if __name__ == "__main__":
-    main()
+logger.info("Pipeline started")

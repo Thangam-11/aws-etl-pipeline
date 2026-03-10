@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-
+from utils.logger import logger
 
 # ---------- DATE TRACKER ----------
 def read_last_date(file_path):
@@ -30,3 +30,5 @@ def get_next_date(last_date_str):
     next_date = last_date + timedelta(days=1)
 
     return next_date.strftime("%Y-%m-%d")
+
+logger.info("✅ Date utilities loaded successfully")

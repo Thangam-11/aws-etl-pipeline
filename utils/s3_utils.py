@@ -1,24 +1,36 @@
+
+
 import boto3
 from io import StringIO
+from utils.logger import logger
 
 
-# ---------- S3 UPLOAD FUNCTION ----------
 def upload_to_s3(df, bucket, key, aws_config):
 
-    csv_buffer = StringIO()
+    try:
 
-    df.to_csv(csv_buffer, index=False)
+        if df is None or df.empty:
+            logger.warning("⚠️ DataFrame is empty. Skipping upload.")
+            return
 
-    s3 = boto3.client("s3", **aws_config)
+        csv_buffer = StringIO()
 
-    s3.put_object(
-        Bucket=bucket,
-        Key=key,
-        Body=csv_buffer.getvalue()
-    )
+        df.to_csv(csv_buffer, index=False)
 
-    print(f"✅ Uploaded to s3://{bucket}/{key}")
+        s3 = boto3.client("s3", **aws_config)
+
+        s3.put_object(
+            Bucket=bucket,
+            Key=key,
+            Body=csv_buffer.getvalue()
+        )
+
+        logger.info(f"Uploaded to s3://{bucket}/{key}")
+
+    except Exception as e:
+
+        logger.exception(f"S3 upload failed for {key} : {str(e)}")
 
 
-
-    
+        raise
+    logger.info("✅ S3 utilities loaded successfully")
