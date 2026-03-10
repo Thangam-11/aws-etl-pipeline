@@ -1,0 +1,21 @@
+database:
+  host: localhost
+  port: 3306
+  user: root
+  password: Thangam@1128
+  database: careplus_support_db
+
+aws:
+  region: ap-south-1
+
+s3:
+  bucket: data-careplusetl
+
+logs:
+  source_folder: day-wise-logs-data
+  tracker_file: tracker/log_date_tracker.txt
+  prefix: support-logs/raw-data
+
+tickets:
+  tracker_file: tracker/ticket_date_tracker.txt
+  prefix: support-tickets/raw-data
